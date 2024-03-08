@@ -70,6 +70,21 @@ const App = () => {
     setNotesInputValue('');
   };
 
+  const handleUpdateNotes = (index: number, updatedNotes: string) => {
+    setSavedBooks((prevSavedBooks) => {
+      const updatedBooks = [...prevSavedBooks];
+      updatedBooks[index].notes = updatedNotes;
+      return updatedBooks;
+    });
+  };
+
+  const handleDeleteSavedBook = (index: number) => {
+    const newSavedBooks = [...savedBooks];
+    newSavedBooks.splice(index, 1);
+    setSavedBooks(newSavedBooks);
+    localStorage.setItem('savedBooks', JSON.stringify(newSavedBooks));
+  };
+
   console.log(noResultsFound);
 
   return (
@@ -83,10 +98,10 @@ const App = () => {
         </a>
       </header>
       <main className="flex h-screen flex-col gap-10 overflow-auto bg-[#F1EFE7] px-20 py-10 lg:flex-row">
-        <div className="flex flex-col gap-20 md:w-1/2">
+        <div className="flex flex-col gap-20 pb-10 md:w-1/2">
           <section className="flex flex-col justify-center gap-4">
             <h2 className="text-4xl font-extrabold">Add a Book</h2>
-            <div className="w-[530px] max-w-[530px] rounded-xl bg-white p-8 text-[#545454]">
+            <div className="w-11/12 rounded-xl bg-white p-8 text-[#545454]">
               <form
                 className="flex flex-col gap-5"
                 onSubmit={handleSearchSubmit}
@@ -144,7 +159,11 @@ const App = () => {
         <div className="flex flex-col gap-5 md:w-1/2">
           <h2 className="text-4xl font-extrabold">My Books</h2>
           {savedBooks?.length > 0 ? (
-            <SavedBooks savedBooks={savedBooks} />
+            <SavedBooks
+              savedBooks={savedBooks}
+              handleDeleteSavedBook={handleDeleteSavedBook}
+              onUpdateNotes={handleUpdateNotes}
+            />
           ) : (
             <NoBooksMessage />
           )}

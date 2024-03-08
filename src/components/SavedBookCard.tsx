@@ -1,23 +1,88 @@
 import { SavedBook } from '@/App';
+import { Delete } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Tooltip } from '@mui/material';
+import { useState } from 'react';
 
 interface SavedBookCardProps {
   book: SavedBook;
+  onDelete: () => void;
+  onUpdateNotes: (updatedNotes: string) => void;
 }
 
-const SavedBookCard = ({ book }: SavedBookCardProps) => {
+const SavedBookCard = ({
+  book,
+  onDelete,
+  onUpdateNotes,
+}: SavedBookCardProps) => {
   const { title, author_name, notes } = book;
+  const [isEditingNotes, setIsEditingNotes] = useState(false);
+  const [currentNotes, setCurrentNotes] = useState(notes);
+
+  const handleEditNotes = () => {
+    setIsEditingNotes(true);
+    setCurrentNotes(notes);
+  };
+
+  const handleSaveNotes = () => {
+    const updatedNotes = currentNotes;
+    onUpdateNotes(updatedNotes);
+    setIsEditingNotes(false);
+  };
+
+  const handleBlur = () => {
+    if (!currentNotes) {
+      setIsEditingNotes(false);
+    }
+  };
+
   return (
-    <div>
-      <div className="flex h-[288px] w-[530px] flex-col gap-3.5 rounded-xl bg-white p-10">
+    <div className="w-11/12 flex-col gap-3.5 rounded-xl bg-white p-8">
+      <div className="flex w-full flex-col gap-3.5">
         <p className="text-2xl font-extrabold">{title}</p>
         <div>
           <p className="font-bold text-[#545454]">Author:</p>
           <p>{author_name}</p>
         </div>
-        <div>
-          <p className="font-bold text-[#545454]">Notes:</p>
-          <p>{notes}</p>
+        <div className="w-3/4">
+          <div className="flex items-center">
+            <p className="font-bold text-[#545454]">Notes:</p>
+            <Tooltip title="Edit notes" arrow>
+              <button
+                className="ml-4 text-blue-500 hover:text-blue-700"
+                onClick={handleEditNotes}
+              >
+                <EditIcon fontSize="small" sx={{ color: '#545454' }} />
+              </button>
+            </Tooltip>
+          </div>
+          {isEditingNotes ? (
+            <>
+              <textarea
+                className="rounded bg-[#F4F4F5] p-2"
+                value={currentNotes}
+                onChange={(event) => setCurrentNotes(event.target.value)}
+                onBlur={handleBlur}
+                rows={4}
+                cols={40}
+              />
+              <button
+                className="text-blue-500 hover:text-blue-700"
+                onClick={handleSaveNotes}
+              >
+                Save
+              </button>
+            </>
+          ) : (
+            <p>{notes}</p>
+          )}
         </div>
+        <button
+          className="flex w-1/3 justify-center rounded-xl text-center  text-red-500 hover:border-2 hover:border-red-400 hover:text-red-700"
+          onClick={onDelete}
+        >
+          Remove Book <Delete />
+        </button>
       </div>
     </div>
   );

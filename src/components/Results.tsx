@@ -1,4 +1,3 @@
-import React from 'react';
 import ResultCard from './ResultCard';
 import { FormattedResultData } from '@/hooks/useOpenLibrarySearch';
 
@@ -26,7 +25,10 @@ const Results = ({
                 ? () => onBookSelect(result.title, result.author_name)
                 : null
             }
-            isSelected={result.title === selectedBook?.title}
+            isSelected={
+              result.title === selectedBook?.title &&
+              result.author_name === selectedBook?.author_name
+            }
           />
         ))}
       </div>
