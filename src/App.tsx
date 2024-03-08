@@ -48,8 +48,8 @@ const App = () => {
     setNotesInputValue(event.target.value);
   };
 
-  const handleSaveBook = (notes: string) => {
-    setSavedBooks([...savedBooks, { ...selectedBook, notes }]);
+  const handleSaveBook = () => {
+    setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }]);
   };
 
   return (
@@ -112,7 +112,6 @@ const App = () => {
               book={selectedBook}
               onSave={handleSaveBook}
               onChange={handleNotesInputChange}
-              notes={notesInputValue}
             />
           )}
         </div>
