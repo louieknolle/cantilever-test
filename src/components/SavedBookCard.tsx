@@ -59,9 +59,14 @@ const SavedBookCard = ({
           </div>
           {isEditingNotes ? (
             <div className="flex flex-col items-start">
+              <label htmlFor="edit-notes" className="font-bold">
+                Edit Notes
+              </label>
               <textarea
                 className="w-10/12 rounded bg-[#F4F4F5] p-2"
                 value={currentNotes}
+                name="edit-notes"
+                id="edit-notes"
                 onChange={(event) => setCurrentNotes(event.target.value)}
                 onBlur={handleBlur}
                 rows={4}

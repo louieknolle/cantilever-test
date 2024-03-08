@@ -20,11 +20,12 @@ const NotesCard = ({ title, onSave, onChange }: NotesCardProps) => {
       <div className="rounded-xl bg-white p-8 text-[#545454]">
         <p className="pb-4 text-xl font-[2000] text-black">{title}</p>
         <form className="flex flex-col gap-4">
-          <label htmlFor="notes" className="font-bold">
+          <label htmlFor="add-notes" className="font-bold">
             Notes
           </label>
           <textarea
-            name="notes"
+            name="add-notes"
+            id="add-notes"
             rows={4}
             placeholder="Add notes"
             className="rounded bg-[#F4F4F5] p-5"

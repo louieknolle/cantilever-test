@@ -112,6 +112,7 @@ const App = () => {
                 </label>
                 <input
                   name="search"
+                  id="search"
                   type="text"
                   placeholder="Search by name or author"
                   className="rounded bg-[#F4F4F5] p-5"
