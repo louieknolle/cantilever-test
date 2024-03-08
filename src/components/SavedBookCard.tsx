@@ -34,18 +34,19 @@ const SavedBookCard = ({
     if (!currentNotes) {
       setIsEditingNotes(false);
     }
+    handleSaveNotes();
   };
 
   return (
     <div className="w-11/12 flex-col gap-3.5 rounded-xl bg-white p-8">
       <div className="flex w-full flex-col gap-3.5">
-        <p className="text-2xl font-extrabold">{title}</p>
+        <p className="text-2xl font-[1100]">{title}</p>
         <div>
-          <p className="font-bold text-[#545454]">Author:</p>
+          <p className="pb-2 font-[1100] text-[#545454]">Author:</p>
           <p>{author_name}</p>
         </div>
         <div className="w-3/4">
-          <div className="flex items-center">
+          <div className="flex items-center pb-2">
             <p className="font-bold text-[#545454]">Notes:</p>
             <Tooltip title="Edit notes" arrow>
               <button
@@ -57,9 +58,9 @@ const SavedBookCard = ({
             </Tooltip>
           </div>
           {isEditingNotes ? (
-            <>
+            <div className="flex flex-col items-start">
               <textarea
-                className="rounded bg-[#F4F4F5] p-2"
+                className="w-10/12 rounded bg-[#F4F4F5] p-2"
                 value={currentNotes}
                 onChange={(event) => setCurrentNotes(event.target.value)}
                 onBlur={handleBlur}
@@ -72,9 +73,11 @@ const SavedBookCard = ({
               >
                 Save
               </button>
-            </>
+            </div>
           ) : (
-            <p>{notes}</p>
+            <p className="overflow-hidden overflow-ellipsis whitespace-normal">
+              {notes}
+            </p>
           )}
         </div>
         <button

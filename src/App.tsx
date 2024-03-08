@@ -44,6 +44,7 @@ const App = () => {
   ) => {
     event.preventDefault();
     setSearchResults([]);
+    setSelectedBook(undefined);
     try {
       const formattedData = await fetchData(searchInputValue);
       setSearchResults(formattedData);
@@ -88,7 +89,7 @@ const App = () => {
   console.log(noResultsFound);
 
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-scroll">
       <header
         className="sticky top-0 z-10 flex max-h-[71] w-full items-center bg-white px-20 py-5"
         id="top"
@@ -98,12 +99,12 @@ const App = () => {
         </a>
       </header>
       <main className="flex h-screen flex-col gap-10 overflow-auto bg-[#F1EFE7] px-20 py-10 lg:flex-row">
-        <div className="flex flex-col gap-20 pb-10 md:w-1/2">
-          <section className="flex flex-col justify-center gap-4">
+        <div className="flex h-full w-full flex-col gap-20 pb-10 lg:w-1/2">
+          <section className="flex flex-col justify-center gap-5">
             <h2 className="text-4xl font-extrabold">Add a Book</h2>
             <div className="w-11/12 rounded-xl bg-white p-8 text-[#545454]">
               <form
-                className="flex flex-col gap-5"
+                className="flex w-full flex-col gap-5"
                 onSubmit={handleSearchSubmit}
               >
                 <label htmlFor="search" className="text-xl font-bold">
@@ -122,7 +123,7 @@ const App = () => {
                   type="submit"
                   className={`${
                     searchInputValue ? '' : 'cursor-not-allowed opacity-50'
-                  } w-1/4 rounded-lg bg-black px-[30px] py-[15px] text-white`}
+                  } w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4`}
                   disabled={isLoading || !searchInputValue}
                 >
                   Search
@@ -156,7 +157,7 @@ const App = () => {
             />
           )}
         </div>
-        <div className="flex flex-col gap-5 md:w-1/2">
+        <section className="flex flex-col gap-5 md:w-1/2">
           <h2 className="text-4xl font-extrabold">My Books</h2>
           {savedBooks?.length > 0 ? (
             <SavedBooks
@@ -167,7 +168,7 @@ const App = () => {
           ) : (
             <NoBooksMessage />
           )}
-        </div>
+        </section>
       </main>
     </div>
   );

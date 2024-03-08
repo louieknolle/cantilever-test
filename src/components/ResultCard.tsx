@@ -1,5 +1,4 @@
 import { FormattedResultData } from '@/hooks/useOpenLibrarySearch';
-import React from 'react';
 
 interface ResultCardProps {
   result: FormattedResultData;
@@ -20,7 +19,7 @@ const ResultCard = ({ result, onClick, isSelected }: ResultCardProps) => {
       <div
         className={`${
           !isSelected ? '' : 'border-4 border-solid border-blue-500'
-        }flex min-h-[166px] w-[255px] flex-col gap-3.5 rounded-xl bg-white p-10`}
+        } flex flex-col gap-3.5 rounded-xl bg-white p-10`}
       >
         <p className="text-2xl font-extrabold">{title}</p>
         <div>

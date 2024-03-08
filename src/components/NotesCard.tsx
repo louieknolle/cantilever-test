@@ -9,10 +9,10 @@ interface NotesCardProps {
 const NotesCard = ({ title, onSave, onChange }: NotesCardProps) => {
   return (
     <div>
-      <div className="w-[530px] max-w-[530px] rounded-xl bg-white p-8 text-[#545454]">
-        <p>{title}</p>
+      <div className="rounded-xl bg-white p-8 text-[#545454]">
+        <p className="pb-4 font-[2000] text-black">{title}</p>
         <form className="flex flex-col gap-4">
-          <label htmlFor="notes" className="text-lg font-bold">
+          <label htmlFor="notes" className="font-bold">
             Notes
           </label>
           <textarea
@@ -24,7 +24,7 @@ const NotesCard = ({ title, onSave, onChange }: NotesCardProps) => {
           />
           <button
             type="submit"
-            className="w-1/4 rounded-lg bg-black px-[30px] py-[15px] text-white"
+            className="w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4"
             onClick={onSave}
           >
             Save

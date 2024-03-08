@@ -10,7 +10,7 @@ interface AddNotesProps {
 
 const AddNotes = ({ book, onSave, onChange }: AddNotesProps) => {
   return (
-    <section className="flex h-[407px] w-[530px] flex-col justify-center gap-4">
+    <section className="mb-10 flex w-11/12 flex-col justify-center gap-4">
       <h2 className="text-4xl font-extrabold">Add Notes</h2>
       <NotesCard title={book?.title} onSave={onSave} onChange={onChange} />
     </section>
