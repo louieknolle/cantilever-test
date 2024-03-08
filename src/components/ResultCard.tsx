@@ -16,17 +16,24 @@ const ResultCard = ({ result, onClick, isSelected }: ResultCardProps) => {
   };
   return (
     <button aria-label={title} aria-labelledby={title} onClick={handleClick}>
-      <div
+      <a
+        href="/#add-notes"
         className={`${
           !isSelected ? '' : 'border-4 border-solid border-blue-500'
         } flex flex-col gap-3.5 rounded-xl bg-white p-10`}
       >
-        <p className="text-2xl font-extrabold">{title}</p>
+        <p
+          className={`${
+            title[0].length > 12 ? 'overflow-hidden overflow-ellipsis' : ''
+          }text-2xl font-extrabold`}
+        >
+          {title}
+        </p>
         <div>
           <p className="text-[#545454]font-bold">Author:</p>
           <p>{author_name}</p>
         </div>
-      </div>
+      </a>
     </button>
   );
 };

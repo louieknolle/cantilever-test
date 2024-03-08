@@ -13,7 +13,7 @@ const SavedBooks = ({
   onUpdateNotes,
 }: SavedBooksProps) => {
   return (
-    <div className="flex flex-col gap-5 overflow-scroll">
+    <div className="flex flex-col gap-5">
       {savedBooks.map((book, index) => (
         <SavedBookCard
           key={index}

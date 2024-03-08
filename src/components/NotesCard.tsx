@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface NotesCardProps {
   title?: string;
-  onSave: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSave: MouseEventHandler<HTMLButtonElement>;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const NotesCard = ({ title, onSave, onChange }: NotesCardProps) => {
+  const handleSave: MouseEventHandler<HTMLButtonElement> = (event) => {
+    onSave(event);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div>
       <div className="rounded-xl bg-white p-8 text-[#545454]">
-        <p className="pb-4 font-[2000] text-black">{title}</p>
+        <p className="pb-4 text-xl font-[2000] text-black">{title}</p>
         <form className="flex flex-col gap-4">
           <label htmlFor="notes" className="font-bold">
             Notes
@@ -24,8 +32,8 @@ const NotesCard = ({ title, onSave, onChange }: NotesCardProps) => {
           />
           <button
             type="submit"
-            className="w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4"
-            onClick={onSave}
+            onClick={handleSave}
+            className="w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white outline-none focus:border-2 focus:border-blue-500 md:px-8 md:py-4 lg:w-1/4"
           >
             Save
           </button>
