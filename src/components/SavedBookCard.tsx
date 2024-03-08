@@ -1,5 +1,4 @@
 import { SavedBook } from '@/App';
-import React from 'react';
 
 interface SavedBookCardProps {
   book: SavedBook;

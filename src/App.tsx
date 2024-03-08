@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Results from './components/Results';
 import AddNotes from './components/AddNotes';
 import SavedBooks from './components/SavedBooks';
-import useOpenLibrarySearch, {
+import {
+  useOpenLibrarySearch,
   FormattedResultData,
 } from './hooks/useOpenLibrarySearch';
 import NoBooksMessage from './components/NoBooksMessage';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export interface SavedBook {
   title: string;
@@ -17,12 +19,19 @@ const App = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>('');
   const [notesInputValue, setNotesInputValue] = useState<string>('');
   const [searchResults, setSearchResults] = useState<FormattedResultData[]>([]);
-  const [selectedBook, setSelectedBook] = useState<FormattedResultData | null>(
-    null,
-  );
+  const [selectedBook, setSelectedBook] = useState<FormattedResultData>();
   const [savedBooks, setSavedBooks] = useState<SavedBook[]>([]);
-  console.log(notesInputValue);
-  const { data, isLoading, error } = useOpenLibrarySearch(searchInputValue);
+  const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch();
+
+  useEffect(() => {
+    const savedBooksFromLocalStorage = localStorage.getItem('savedBooks');
+    if (savedBooksFromLocalStorage) {
+      setSavedBooks(JSON.parse(savedBooksFromLocalStorage));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
+  }, [savedBooks]);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -34,8 +43,14 @@ const App = () => {
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    void setSearchInputValue(searchInputValue);
-    void setSearchResults(data);
+    setSearchResults([]);
+    try {
+      const formattedData = await fetchData(searchInputValue);
+      setSearchResults(formattedData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setSearchInputValue('');
+    }
   };
 
   const handleBookSelect = (title: string, authorName: string) => {
@@ -48,12 +63,17 @@ const App = () => {
     setNotesInputValue(event.target.value);
   };
 
-  const handleSaveBook = () => {
+  const handleSaveBook = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }]);
+    setSelectedBook(undefined);
+    setNotesInputValue('');
   };
 
+  console.log(noResultsFound);
+
   return (
-    <div className="App">
+    <div className="h-screen">
       <header
         className="sticky top-0 z-10 flex max-h-[71] w-full items-center bg-white px-20 py-5"
         id="top"
@@ -62,7 +82,7 @@ const App = () => {
           <h1 className="text-4xl font-extrabold">Book Manager</h1>
         </a>
       </header>
-      <main className="flex h-screen flex-col gap-10 bg-[#F1EFE7] px-20 py-10 lg:flex-row">
+      <main className="flex h-screen flex-col gap-10 overflow-auto bg-[#F1EFE7] px-20 py-10 lg:flex-row">
         <div className="flex flex-col gap-20 md:w-1/2">
           <section className="flex flex-col justify-center gap-4">
             <h2 className="text-4xl font-extrabold">Add a Book</h2>
@@ -94,10 +114,16 @@ const App = () => {
                 </button>
               </form>
             </div>
+            {isLoading ? (
+              <CircularProgress
+                color="inherit"
+                sx={{ alignSelf: 'center', marginTop: '20%' }}
+              />
+            ) : null}
           </section>
-          {error ? (
-            <p>
-              Error: No books found. Please double check search or try again.
+          {noResultsFound ? (
+            <p className="rounded-xl bg-[#E7E3D4] p-5 text-[#545454]">
+              No results found, try a new search.
             </p>
           ) : null}
           {searchResults.length > 0 ? (

@@ -1,9 +1,8 @@
-import { FormattedResultData } from '@/hooks/useOpenLibrarySearch';
 import React from 'react';
 
 interface NotesCardProps {
   title?: string;
-  onSave: () => void;
+  onSave: (event: React.FormEvent<HTMLFormElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 

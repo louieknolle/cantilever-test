@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
 export interface OpenLibrarySearchResult {
@@ -11,48 +11,45 @@ export interface FormattedResultData {
   author_name: string;
 }
 
-const useOpenLibrarySearch = (searchTerm: string) => {
-  const [data, setData] = useState([]);
+export const useOpenLibrarySearch = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('null');
+  const [noResultsFound, setNoResultsFound] = useState('');
 
-  // Sanitize search term to prevent potential security vulnerabilities e.g. SQL injection
-  const sanitizedSearchTerm = searchTerm.replace(/[^\w\s]/gi, '');
+  const fetchData = async (searchTerm: string) => {
+    // Sanitize search term to prevent potential security vulnerabilities e.g. SQL injection
+    const sanitizedSearchTerm = searchTerm.replace(/[^\w\s]/gi, '');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+    setIsLoading(true);
+    setError(null);
+    setNoResultsFound('');
 
-      try {
-        const response: AxiosResponse = await axios.get(
-          `https://openlibrary.org/search.json?q=${sanitizedSearchTerm}&fields=author_name,title&limit=10`,
-        );
-        console.log(response);
-        if (response.data.docs) {
-          const formattedData = response.data.docs.map(
-            (doc: OpenLibrarySearchResult) => ({
-              author_name: doc.author_name?.[0] || 'Unknown',
-              title: doc.title,
-            }),
-          );
-          setData(formattedData);
-        } else {
-          setData([]); // Set empty data if no results found
-        }
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response: AxiosResponse = await axios.get(
+        `https://openlibrary.org/search.json?q=${sanitizedSearchTerm}&fields=author_name,title&limit=10`,
+      );
+      console.log(response);
+
+      if (response.data?.numFound === 0) {
+        setNoResultsFound('No results found');
+        return [];
       }
-    };
 
-    if (searchTerm) {
-      fetchData();
+      const formattedData = response?.data?.docs.map(
+        (doc: OpenLibrarySearchResult) => ({
+          author_name: doc.author_name?.[0] || 'Unknown',
+          title: doc.title,
+        }),
+      );
+
+      return formattedData;
+    } catch (error) {
+      setError(error);
+      return []; // Return empty data on error
+    } finally {
+      setIsLoading(false);
     }
-  }, [sanitizedSearchTerm, searchTerm]);
+  };
 
-  return { data, isLoading, error };
+  return { fetchData, isLoading, error, noResultsFound };
 };
-
-export default useOpenLibrarySearch;

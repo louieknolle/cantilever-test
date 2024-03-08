@@ -1,4 +1,3 @@
-import React from 'react';
 import SavedBookCard from './SavedBookCard';
 import { SavedBook } from '@/App';
 

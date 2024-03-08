@@ -1,11 +1,10 @@
 import React from 'react';
 import NotesCard from './NotesCard';
 import { FormattedResultData } from '@/hooks/useOpenLibrarySearch';
-import { SavedBook } from '@/App';
 
 interface AddNotesProps {
   book: FormattedResultData | null;
-  onSave: () => void;
+  onSave: (event: React.FormEvent<HTMLFormElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
