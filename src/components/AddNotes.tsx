@@ -1,4 +1,4 @@
-import NotesCard from './NotesCard'
+import NotesCard from './NotesCard';
 
 const AddNotes = () => {
   return (
@@ -9,7 +9,7 @@ const AddNotes = () => {
       <h2 className="text-4xl font-extrabold">Add Notes</h2>
       <NotesCard />
     </section>
-  )
-}
+  );
+};
 
-export default AddNotes
+export default AddNotes;

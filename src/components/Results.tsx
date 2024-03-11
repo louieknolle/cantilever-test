@@ -1,13 +1,14 @@
-import { AppContext } from '@/context/AppContext'
-import { useContext } from 'react'
-import ResultCard from './ResultCard'
+import { AppContext } from '@/context/AppContext';
+import { useContext } from 'react';
+import ResultCard from './ResultCard';
 
-interface ResultsProps {
-  onBookSelect: (title: string, authorName: string) => void
-}
+const Results = () => {
+  const { searchResults, selectedBook } = useContext(AppContext);
+  const { setSelectedBook } = useContext(AppContext);
 
-const Results = ({ onBookSelect }: ResultsProps) => {
-  const { searchResults, selectedBook } = useContext(AppContext)
+  const handleBookSelect = (title: string, authorName: string) => {
+    setSelectedBook({ title, author_name: authorName });
+  };
   return (
     <section className="flex w-11/12 flex-col gap-4">
       <h2 className="text-4xl font-extrabold">
@@ -18,11 +19,7 @@ const Results = ({ onBookSelect }: ResultsProps) => {
           <ResultCard
             key={index}
             result={result}
-            onClick={
-              onBookSelect
-                ? () => onBookSelect(result.title, result.author_name)
-                : null
-            }
+            onClick={() => handleBookSelect(result.title, result.author_name)}
             isSelected={
               result.title === selectedBook?.title &&
               result.author_name === selectedBook?.author_name
@@ -31,7 +28,7 @@ const Results = ({ onBookSelect }: ResultsProps) => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

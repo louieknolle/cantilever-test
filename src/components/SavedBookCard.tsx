@@ -1,41 +1,34 @@
-import { SavedBook } from '@/App'
-import { Delete } from '@mui/icons-material'
-import EditIcon from '@mui/icons-material/Edit'
-import { Tooltip } from '@mui/material'
-import { useState } from 'react'
+import { SavedBook } from '@/App';
+import { Delete } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Tooltip } from '@mui/material';
+import { useState } from 'react';
 
 interface SavedBookCardProps {
-  book: SavedBook
-  onDelete: () => void
-  onUpdateNotes: (updatedNotes: string) => void
+  book: SavedBook;
+  onDelete: () => void;
+  onUpdateNotes: (updatedNotes: string) => void;
 }
 
 const SavedBookCard = ({
   book,
   onDelete,
-  onUpdateNotes
+  onUpdateNotes,
 }: SavedBookCardProps) => {
-  const { title, author_name, notes } = book
-  const [isEditingNotes, setIsEditingNotes] = useState(false)
-  const [currentNotes, setCurrentNotes] = useState(notes)
+  const { title, author_name, notes } = book;
+  const [isEditingNotes, setIsEditingNotes] = useState(false);
+  const [currentNotes, setCurrentNotes] = useState(notes);
 
   const handleEditNotes = () => {
-    setIsEditingNotes(true)
-    setCurrentNotes(notes)
-  }
+    setIsEditingNotes(true);
+    setCurrentNotes(notes);
+  };
 
   const handleSaveNotes = () => {
-    const updatedNotes = currentNotes
-    onUpdateNotes(updatedNotes)
-    setIsEditingNotes(false)
-  }
-
-  const handleBlur = () => {
-    if (!currentNotes) {
-      setIsEditingNotes(false)
-    }
-    handleSaveNotes()
-  }
+    const updatedNotes = currentNotes;
+    onUpdateNotes(updatedNotes);
+    setIsEditingNotes(false);
+  };
 
   return (
     <div className="w-11/12 flex-col gap-3.5 rounded-xl bg-white p-8">
@@ -92,7 +85,7 @@ const SavedBookCard = ({
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SavedBookCard
+export default SavedBookCard;

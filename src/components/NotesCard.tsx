@@ -1,5 +1,5 @@
-import { AppContext } from '@/context/AppContext'
-import React, { useContext } from 'react'
+import { AppContext } from '@/context/AppContext';
+import React, { useContext } from 'react';
 
 const NotesCard = () => {
   const {
@@ -8,25 +8,25 @@ const NotesCard = () => {
     setNotesInputValue,
     savedBooks,
     setSelectedBook,
-    notesInputValue
-  } = useContext(AppContext)
+    notesInputValue,
+  } = useContext(AppContext);
 
   const handleNotesInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    setNotesInputValue(event.target.value)
-  }
+    setNotesInputValue(event.target.value);
+  };
 
   const handleSaveBook = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }])
-    setSelectedBook(undefined)
-    setNotesInputValue('')
+    event.preventDefault();
+    setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }]);
+    setSelectedBook(undefined);
+    setNotesInputValue('');
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    })
-  }
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div>
@@ -34,7 +34,7 @@ const NotesCard = () => {
         <p className="pb-4 text-xl font-[2000] text-black">
           {selectedBook?.title}
         </p>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSaveBook}>
           <label htmlFor="add-notes" className="font-bold">
             Notes
           </label>
@@ -48,7 +48,6 @@ const NotesCard = () => {
           />
           <button
             type="submit"
-            onClick={handleSaveBook}
             className="w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white outline-none focus:border-2 focus:border-blue-500 md:px-8 md:py-4 lg:w-1/4"
           >
             Save
@@ -56,7 +55,7 @@ const NotesCard = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotesCard
+export default NotesCard;

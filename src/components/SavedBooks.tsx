@@ -1,24 +1,24 @@
-import { useContext } from 'react'
-import SavedBookCard from './SavedBookCard'
-import { SavedBook } from '@/App'
-import { AppContext } from '@/context/AppContext'
+import { useContext } from 'react';
+import SavedBookCard from './SavedBookCard';
+import { SavedBook } from '@/App';
+import { AppContext } from '@/context/AppContext';
 
 const SavedBooks = () => {
-  const { setSavedBooks, savedBooks } = useContext(AppContext)
+  const { setSavedBooks, savedBooks } = useContext(AppContext);
   const handleUpdateNotes = (index: number, updatedNotes: string) => {
     setSavedBooks((prevSavedBooks) => {
-      const updatedBooks = [...prevSavedBooks]
-      updatedBooks[index].notes = updatedNotes
-      return updatedBooks
-    })
-  }
+      const updatedBooks = [...prevSavedBooks];
+      updatedBooks[index].notes = updatedNotes;
+      return updatedBooks;
+    });
+  };
 
   const handleDeleteSavedBook = (index: number) => {
-    const newSavedBooks = [...savedBooks]
-    newSavedBooks.splice(index, 1)
-    setSavedBooks(newSavedBooks)
-    localStorage.setItem('savedBooks', JSON.stringify(newSavedBooks))
-  }
+    const newSavedBooks = [...savedBooks];
+    newSavedBooks.splice(index, 1);
+    setSavedBooks(newSavedBooks);
+    localStorage.setItem('savedBooks', JSON.stringify(newSavedBooks));
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -33,7 +33,7 @@ const SavedBooks = () => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default SavedBooks
+export default SavedBooks;

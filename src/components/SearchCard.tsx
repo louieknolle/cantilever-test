@@ -1,37 +1,37 @@
-import { AppContext } from '@/context/AppContext'
-import { useOpenLibrarySearch } from '@/hooks/useOpenLibrarySearch'
-import { CircularProgress } from '@mui/material'
-import React, { useContext } from 'react'
+import { AppContext } from '@/context/AppContext';
+import { useOpenLibrarySearch } from '@/hooks/useOpenLibrarySearch';
+import { CircularProgress } from '@mui/material';
+import React, { useContext } from 'react';
 
 const SearchCard = () => {
   const {
     setSearchInputValue,
     setSearchResults,
     setSelectedBook,
-    searchInputValue
-  } = useContext(AppContext)
-  const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch()
+    searchInputValue,
+  } = useContext(AppContext);
+  const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch();
 
   const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSearchInputValue(event.target.value)
-  }
+    setSearchInputValue(event.target.value);
+  };
 
   const handleSearchSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ) => {
-    event.preventDefault()
-    setSearchResults([])
-    setSelectedBook(undefined)
+    event.preventDefault();
+    setSearchResults([]);
+    setSelectedBook(undefined);
     try {
-      const formattedData = await fetchData(searchInputValue)
-      setSearchResults(formattedData)
+      const formattedData = await fetchData(searchInputValue);
+      setSearchResults(formattedData);
     } catch (error) {
-      console.error('Error fetching data:', error)
-      setSearchInputValue('')
+      console.error('Error fetching data:', error);
+      setSearchInputValue('');
     }
-  }
+  };
   return (
     <section className="flex flex-col justify-center gap-5">
       <h2 className="text-4xl font-extrabold">Add a Book</h2>
@@ -76,7 +76,7 @@ const SearchCard = () => {
         </p>
       ) : null}
     </section>
-  )
-}
+  );
+};
 
-export default SearchCard
+export default SearchCard;
