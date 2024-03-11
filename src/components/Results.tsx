@@ -1,17 +1,13 @@
-import ResultCard from './ResultCard';
-import { FormattedResultData } from '@/hooks/useOpenLibrarySearch';
+import { AppContext } from '@/context/AppContext'
+import { useContext } from 'react'
+import ResultCard from './ResultCard'
 
 interface ResultsProps {
-  searchResults: FormattedResultData[];
-  onBookSelect: (title: string, authorName: string) => void;
-  selectedBook: FormattedResultData | null;
+  onBookSelect: (title: string, authorName: string) => void
 }
 
-const Results = ({
-  searchResults,
-  onBookSelect,
-  selectedBook,
-}: ResultsProps) => {
+const Results = ({ onBookSelect }: ResultsProps) => {
+  const { searchResults, selectedBook } = useContext(AppContext)
   return (
     <section className="flex w-11/12 flex-col gap-4">
       <h2 className="text-4xl font-extrabold">
@@ -35,7 +31,7 @@ const Results = ({
         ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Results;
+export default Results
