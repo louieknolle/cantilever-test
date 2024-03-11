@@ -22,6 +22,7 @@ The book manager allows users to search for books by author or title, and view d
 ## Known Bugs
 
 - The scrolling to the top of the page when a book is added to the reading list is not working as intended, it only travels to the bottom of the saved books list
+- The way that I imported the Poppins font using tailwind, it isn't able to get as bold as in the mocks
 
 
 ## License
