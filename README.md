@@ -15,7 +15,7 @@ The book manager allows users to search for books by author or title, and view d
 - In your terminal, clone this project locally with the link provided on the its Github <a href="https://github.com/louieknolle/cantilever-test.git">repository</a>
 - Navigate to project `cd cantilever-test`
 - Install project dependencies by running the command ```npm install``` in the terminal opened to the directory
-- Then run the command ```npm run start``` to start the project server and view the application (use cmd + c to exit the server in the terminal)
+- Then run the command ```npm run dev``` to start the project server and view the application (use cmd + c to exit the server in the terminal)
 - Open the project with the code editor of your choice or follow the `localhost` link provided in the terminal to view the project
 
 
