@@ -1,92 +1,92 @@
-import { useEffect, useState } from 'react';
-import Results from './components/Results';
-import AddNotes from './components/AddNotes';
-import SavedBooks from './components/SavedBooks';
+import { useEffect, useState } from 'react'
+import Results from './components/Results'
+import AddNotes from './components/AddNotes'
+import SavedBooks from './components/SavedBooks'
 import {
   useOpenLibrarySearch,
-  FormattedResultData,
-} from './hooks/useOpenLibrarySearch';
-import NoBooksMessage from './components/NoBooksMessage';
-import CircularProgress from '@mui/material/CircularProgress';
+  FormattedResultData
+} from './hooks/useOpenLibrarySearch'
+import NoBooksMessage from './components/NoBooksMessage'
+import CircularProgress from '@mui/material/CircularProgress'
 
 export interface SavedBook {
-  title: string;
-  author_name: string;
-  notes: string;
+  title: string
+  author_name: string
+  notes: string
 }
 
 const App = () => {
-  const [searchInputValue, setSearchInputValue] = useState<string>('');
-  const [notesInputValue, setNotesInputValue] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<FormattedResultData[]>([]);
-  const [selectedBook, setSelectedBook] = useState<FormattedResultData>();
-  const [savedBooks, setSavedBooks] = useState<SavedBook[]>([]);
-  const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch();
+  const [searchInputValue, setSearchInputValue] = useState<string>('')
+  const [notesInputValue, setNotesInputValue] = useState<string>('')
+  const [searchResults, setSearchResults] = useState<FormattedResultData[]>([])
+  const [selectedBook, setSelectedBook] = useState<FormattedResultData>()
+  const [savedBooks, setSavedBooks] = useState<SavedBook[]>([])
+  const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch()
 
   useEffect(() => {
-    const savedBooksFromLocalStorage = localStorage.getItem('savedBooks');
+    const savedBooksFromLocalStorage = localStorage.getItem('savedBooks')
     if (savedBooksFromLocalStorage) {
-      setSavedBooks(JSON.parse(savedBooksFromLocalStorage));
+      setSavedBooks(JSON.parse(savedBooksFromLocalStorage))
     }
-  }, []);
+  }, [])
   useEffect(() => {
-    localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
-  }, [savedBooks]);
+    localStorage.setItem('savedBooks', JSON.stringify(savedBooks))
+  }, [savedBooks])
 
   const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setSearchInputValue(event.target.value);
-  };
+    setSearchInputValue(event.target.value)
+  }
 
   const handleSearchSubmit = async (
-    event: React.FormEvent<HTMLFormElement>,
+    event: React.FormEvent<HTMLFormElement>
   ) => {
-    event.preventDefault();
-    setSearchResults([]);
-    setSelectedBook(undefined);
+    event.preventDefault()
+    setSearchResults([])
+    setSelectedBook(undefined)
     try {
-      const formattedData = await fetchData(searchInputValue);
-      setSearchResults(formattedData);
+      const formattedData = await fetchData(searchInputValue)
+      setSearchResults(formattedData)
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setSearchInputValue('');
+      console.error('Error fetching data:', error)
+      setSearchInputValue('')
     }
-  };
+  }
 
   const handleBookSelect = (title: string, authorName: string) => {
-    setSelectedBook({ title, author_name: authorName });
-  };
+    setSelectedBook({ title, author_name: authorName })
+  }
 
   const handleNotesInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setNotesInputValue(event.target.value);
-  };
+    setNotesInputValue(event.target.value)
+  }
 
   const handleSaveBook = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }]);
-    setSelectedBook(undefined);
-    setNotesInputValue('');
-  };
+    event.preventDefault()
+    setSavedBooks([...savedBooks, { ...selectedBook, notes: notesInputValue }])
+    setSelectedBook(undefined)
+    setNotesInputValue('')
+  }
 
   const handleUpdateNotes = (index: number, updatedNotes: string) => {
     setSavedBooks((prevSavedBooks) => {
-      const updatedBooks = [...prevSavedBooks];
-      updatedBooks[index].notes = updatedNotes;
-      return updatedBooks;
-    });
-  };
+      const updatedBooks = [...prevSavedBooks]
+      updatedBooks[index].notes = updatedNotes
+      return updatedBooks
+    })
+  }
 
   const handleDeleteSavedBook = (index: number) => {
-    const newSavedBooks = [...savedBooks];
-    newSavedBooks.splice(index, 1);
-    setSavedBooks(newSavedBooks);
-    localStorage.setItem('savedBooks', JSON.stringify(newSavedBooks));
-  };
+    const newSavedBooks = [...savedBooks]
+    newSavedBooks.splice(index, 1)
+    setSavedBooks(newSavedBooks)
+    localStorage.setItem('savedBooks', JSON.stringify(newSavedBooks))
+  }
 
-  console.log(noResultsFound);
+  console.log(noResultsFound)
 
   return (
     <div className="h-screen overflow-scroll scroll-smooth bg-[#F1EFE7] pb-10">
@@ -125,7 +125,7 @@ const App = () => {
                   className={`${
                     searchInputValue ? '' : 'cursor-not-allowed opacity-50'
                   } w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4`}
-                  disabled={isLoading || !searchInputValue}
+                  disabled={isLoading ?? !searchInputValue}
                 >
                   Search
                 </button>
@@ -139,7 +139,7 @@ const App = () => {
             ) : null}
           </section>
           {noResultsFound ? (
-            <p className="rounded-xl bg-[#E7E3D4] p-5 text-[#545454]">
+            <p className="w-11/12 rounded-xl bg-[#E7E3D4] p-5 text-[#545454]">
               No results found, try a new search.
             </p>
           ) : null}
@@ -172,7 +172,7 @@ const App = () => {
         </section>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
