@@ -68,7 +68,6 @@ const SavedBookCard = ({
                 name="edit-notes"
                 id="edit-notes"
                 onChange={(event) => setCurrentNotes(event.target.value)}
-                // onBlur={handleBlur}
                 rows={4}
                 cols={40}
               />
