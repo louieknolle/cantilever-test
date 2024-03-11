@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Results from './components/Results'
 import AddNotes from './components/AddNotes'
 import SavedBooks from './components/SavedBooks'
@@ -8,6 +8,7 @@ import {
 } from './hooks/useOpenLibrarySearch'
 import NoBooksMessage from './components/NoBooksMessage'
 import CircularProgress from '@mui/material/CircularProgress'
+import { AppContext } from './context/AppContext'
 
 export interface SavedBook {
   title: string
@@ -16,11 +17,23 @@ export interface SavedBook {
 }
 
 const App = () => {
-  const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const [notesInputValue, setNotesInputValue] = useState<string>('')
-  const [searchResults, setSearchResults] = useState<FormattedResultData[]>([])
-  const [selectedBook, setSelectedBook] = useState<FormattedResultData>()
-  const [savedBooks, setSavedBooks] = useState<SavedBook[]>([])
+  // const [searchInputValue, setSearchInputValue] = useState<string>('')
+  // const [notesInputValue, setNotesInputValue] = useState<string>('')
+  // const [searchResults, setSearchResults] = useState<FormattedResultData[]>([])
+  // const [selectedBook, setSelectedBook] = useState<FormattedResultData>()
+  // const [savedBooks, setSavedBooks] = useState<SavedBook[]>([])
+  const {
+    searchInputValue,
+    setSearchInputValue,
+    notesInputValue,
+    setNotesInputValue,
+    searchResults,
+    setSearchResults,
+    selectedBook,
+    setSelectedBook,
+    savedBooks,
+    setSavedBooks
+  } = useContext(AppContext)
   const { fetchData, isLoading, noResultsFound } = useOpenLibrarySearch()
 
   useEffect(() => {
