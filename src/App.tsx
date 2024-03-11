@@ -125,7 +125,7 @@ const App = () => {
                   className={`${
                     searchInputValue ? '' : 'cursor-not-allowed opacity-50'
                   } w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4`}
-                  disabled={isLoading || !searchInputValue}
+                  disabled={isLoading ?? !searchInputValue}
                 >
                   Search
                 </button>
