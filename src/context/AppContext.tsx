@@ -1,6 +1,11 @@
 import { SavedBook } from '@/App'
 import { FormattedResultData } from '@/hooks/useOpenLibrarySearch'
-import React, { PropsWithChildren, createContext, useState } from 'react'
+import React, {
+  PropsWithChildren,
+  createContext,
+  useEffect,
+  useState
+} from 'react'
 
 interface AppContextValue {
   searchInputValue: string
@@ -25,6 +30,17 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
   const [searchResults, setSearchResults] = useState<FormattedResultData[]>([])
   const [selectedBook, setSelectedBook] = useState<FormattedResultData>()
   const [savedBooks, setSavedBooks] = useState<SavedBook[]>([])
+
+  useEffect(() => {
+    const savedBooksFromLocalStorage = localStorage.getItem('savedBooks')
+    if (savedBooksFromLocalStorage) {
+      setSavedBooks(JSON.parse(savedBooksFromLocalStorage))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('savedBooks', JSON.stringify(savedBooks))
+  }, [savedBooks])
 
   return (
     <AppContext.Provider
