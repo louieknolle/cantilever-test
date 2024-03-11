@@ -1,13 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import Results from './components/Results'
 import AddNotes from './components/AddNotes'
 import SavedBooks from './components/SavedBooks'
-import {
-  useOpenLibrarySearch,
-  FormattedResultData
-} from './hooks/useOpenLibrarySearch'
 import NoBooksMessage from './components/NoBooksMessage'
-import CircularProgress from '@mui/material/CircularProgress'
 import { AppContext } from './context/AppContext'
 import SearchCard from './components/SearchCard'
 
