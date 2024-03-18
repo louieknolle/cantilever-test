@@ -25,7 +25,7 @@ const ResultCard = ({ result, onClick, isSelected }: ResultCardProps) => {
         <p
           className={`${
             title[0].length > 12 ? 'overflow-hidden overflow-ellipsis' : ''
-          }text-2xl font-extrabold`}
+          }text-2xl font-bold`}
         >
           {title}
         </p>

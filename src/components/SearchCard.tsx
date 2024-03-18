@@ -34,7 +34,7 @@ const SearchCard = () => {
   };
   return (
     <section className="flex flex-col justify-center gap-5">
-      <h2 className="text-4xl font-extrabold">Add a Book</h2>
+      <h2 className="text-4xl font-bold">Add a Book</h2>
       <div className="w-11/12 rounded-xl bg-white p-8 text-[#545454]">
         <form
           className="flex w-full flex-col gap-5"
@@ -57,7 +57,7 @@ const SearchCard = () => {
             type="submit"
             className={`${
               searchInputValue ? '' : 'cursor-not-allowed opacity-50'
-            } w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 lg:w-1/4`}
+            } w-1/2 rounded-lg bg-black px-4 py-2 text-center text-white md:px-8 md:py-4 md:text-xl lg:w-1/4`}
             disabled={isLoading ?? !searchInputValue}
           >
             Search

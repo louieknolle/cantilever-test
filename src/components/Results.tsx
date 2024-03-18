@@ -11,7 +11,7 @@ const Results = () => {
   };
   return (
     <section className="flex w-11/12 flex-col gap-4">
-      <h2 className="text-4xl font-extrabold">
+      <h2 className="text-4xl font-bold">
         Results<span className="text-xl">({searchResults.length})</span>
       </h2>
       <div className="grid grid-cols-1 gap-8 align-top md:grid-cols-2">

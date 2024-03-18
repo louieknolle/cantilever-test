@@ -33,9 +33,9 @@ const SavedBookCard = ({
   return (
     <div className="w-11/12 flex-col gap-3.5 rounded-xl bg-white p-8">
       <div className="flex w-full flex-col gap-3.5">
-        <p className="text-2xl font-[1100]">{title}</p>
+        <p className="text-2xl font-bold">{title}</p>
         <div>
-          <p className="pb-2 font-[1100] text-[#545454]">Author:</p>
+          <p className="pb-2 font-bold text-[#545454]">Author:</p>
           <p>{author_name}</p>
         </div>
         <div className="w-3/4">
