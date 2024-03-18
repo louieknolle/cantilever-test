@@ -15,7 +15,12 @@ const ResultCard = ({ result, onClick, isSelected }: ResultCardProps) => {
     }
   };
   return (
-    <button aria-label={title} aria-labelledby={title} onClick={handleClick}>
+    <button
+      aria-label={title}
+      aria-labelledby={title}
+      onClick={handleClick}
+      className="result-card"
+    >
       <a
         href="/#add-notes"
         className={`${

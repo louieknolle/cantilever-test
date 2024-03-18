@@ -1,17 +1,15 @@
 describe('My First Test', () => {
-  it('successfully loads', () => {
+  it('successfully loads, searches with input, and displays results', () => {
     cy.visit('/');
 
-    // cy.contains('type').click();
+    cy.get('h1').contains('Book Manager');
+    cy.get('h2').contains('Add a Book');
+    cy.get('h2').contains('My Books');
 
-    // // Should be on a new URL which
-    // // includes '/commands/actions'
-    // cy.url().should('include', '/commands/actions');
+    cy.get('#search').type('The Great Gatsby');
+    cy.get('button').contains('Search').click();
 
-    // // Get an input, type into it
-    // cy.get('.action-email').type('fake@email.com');
-
-    // //  Verify that the value has been updated
-    // cy.get('.action-email').should('have.value', 'fake@email.com');
+    cy.get('h2').contains('Results');
+    cy.get('.result-card').should('have.length', 10);
   });
 });
