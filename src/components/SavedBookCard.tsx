@@ -25,7 +25,8 @@ const SavedBookCard = ({
   };
 
   const handleSaveNotes = () => {
-    const updatedNotes = currentNotes;
+    if (currentNotes === notes) return;
+    const updatedNotes = currentNotes ? currentNotes : '';
     onUpdateNotes(updatedNotes);
     setIsEditingNotes(false);
   };

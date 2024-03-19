@@ -7,9 +7,9 @@ import { AppContext } from './context/AppContext';
 import SearchCard from './components/SearchCard';
 
 export interface SavedBook {
-  title: string;
-  author_name: string;
-  notes: string;
+  title?: string | undefined;
+  author_name?: string | undefined;
+  notes?: string | undefined;
 }
 
 const App = () => {
