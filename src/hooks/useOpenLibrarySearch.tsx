@@ -13,7 +13,7 @@ export interface FormattedResultData {
 
 export const useOpenLibrarySearch = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('null');
+  const [error, setError] = useState(null);
   const [noResultsFound, setNoResultsFound] = useState('');
 
   const fetchData = async (searchTerm: string) => {
@@ -42,7 +42,7 @@ export const useOpenLibrarySearch = () => {
       );
 
       return formattedData;
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
       return []; // Return empty data on error
     } finally {
